@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Data Preprocessing Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aryan's Interactive Data Preprocessing & Analysis Tool</h1>
+            <p>Upload a CSV, clean your data, and generate visualizations instantly.</p>
+        </header>
+
+        <section id="upload-section" class="card">
+            <h2>1. Upload Your CSV File</h2>
+            <form id="upload-form">
+                <label for="csv-file" class="file-label">Click to select a CSV file</label>
+                <input type="file" id="csv-file" name="file" accept=".csv" required>
+                <button type="submit">Upload & Analyze</button>
+            </form>
+            <div id="loader" class="loader" style="display:none;"></div>
+            <div id="upload-error" class="error-message"></div>
+        </section>
+
+        <div id="main-content" style="display:none;">
+            <div class="file-info">
+                Now working with: <strong id="filename-display"></strong>
+            </div>
+
+            <section id="insights-section" class="card">
+                <h2>Initial Data Insights</h2>
+                <h3>Data Preview (First 5 Rows)</h3>
+                <div id="data-preview"></div>
+                <h3>Data Description (Numeric Columns)</h3>
+                <div id="data-description"></div>
+                <h3>Column Information</h3>
+                <pre id="data-info"></pre>
+            </section>
+            
+            <section id="preprocessing-section" class="card">
+                <h2>2. Clean & Preprocess Data</h2>
+                <div class="tool-grid">
+                    <div id="missing-values-tool">
+                        <h4>A) Handle Missing Values</h4>
+                        <div id="missing-values-options"></div>
+                    </div>
+                    <div id="outliers-tool">
+                        <h4>B) Handle Outliers</h4>
+                        <p class="tool-description">Caps outliers using the 1.5 * IQR rule.</p>
+                        <div id="outlier-options"></div>
+                    </div>
+                    <div id="normalize-tool">
+                        <h4>C) Normalize Data</h4>
+                        <p class="tool-description">Scales numeric data to a range of [0, 1].</p>
+                        <div id="normalize-options"></div>
+                    </div>
+                </div>
+                <button id="preprocess-btn">Apply Preprocessing Steps</button>
+                <div id="preprocess-loader" class="loader" style="display:none;"></div>
+                <div id="preprocess-log" class="log-message"></div>
+                <div id="download-container" class="download-wrapper" style="display:none;">
+                    <a href="#" id="download-link" class="button-download" download>
+                        ⬇️ Download Cleaned CSV
+                    </a>
+                </div>
+            </section>
+
+            <section id="analysis-section" class="card">
+                <h2>3. Analyze & Visualize Data</h2>
+                <div class="analysis-controls">
+                    <div>
+                        <label for="column-select">Select a Column:</label>
+                        <select id="column-select"></select>
+                    </div>
+                    <div>
+                        <label for="plot-type-select">Select a Plot Type:</label>
+                        <select id="plot-type-select"></select>
+                    </div>
+                     <button id="analyze-btn">Generate Analysis</button>
+                </div>
+                <div id="analysis-loader" class="loader" style="display:none;"></div>
+                <div id="analysis-results-container" style="display:none;">
+                    <div id="plot-result"></div>
+                    <div id="stats-result"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
